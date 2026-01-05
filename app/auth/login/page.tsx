@@ -49,7 +49,7 @@ export default function LoginPage() {
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-4">
             <Link href="/" className="text-2xl font-bold text-primary">
-              GrainEx
+              Shyam Wholesale Solutions
             </Link>
           </div>
           <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>

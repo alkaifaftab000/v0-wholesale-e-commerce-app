@@ -25,7 +25,7 @@ export default async function DashboardPage() {
     <div className="flex min-h-screen bg-muted/20">
       {/* Sidebar Placeholder */}
       <aside className="w-64 border-r bg-background hidden md:flex flex-col p-6">
-        <h1 className="text-xl font-bold text-primary mb-8">GrainEx</h1>
+        <h1 className="text-xl font-bold text-primary mb-8">Shyam Wholesale Solutions</h1>
         <nav className="space-y-2 flex-1">
           <Link
             href="/dashboard"

@@ -25,7 +25,8 @@ export default function OnboardingPage() {
   const [formData, setFormData] = useState({
     business_name: "",
     business_type: "",
-    vat_number: "",
+    gst_number: "",
+    fssai_number: "",
     address: "",
     phone: "",
   })
@@ -53,7 +54,8 @@ export default function OnboardingPage() {
           setFormData({
             business_name: profile.business_name || "",
             business_type: profile.business_type || "",
-            vat_number: profile.vat_number || "",
+            gst_number: profile.gst_number || "",
+            fssai_number: profile.fssai_number || "",
             address: profile.address || "",
             phone: profile.phone || "",
           })
@@ -81,6 +83,7 @@ export default function OnboardingPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
+    console.log("[v0] Submitting business verification for user:", user?.id, formData)
 
     try {
       const { error } = await supabase.from("profiles").upsert({
@@ -92,6 +95,7 @@ export default function OnboardingPage() {
 
       if (error) throw error
 
+      console.log("[v0] Verification submitted successfully")
       setStep(3)
     } catch (error: any) {
       console.error("[v0] Error updating profile:", error.message)
@@ -109,7 +113,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-muted/30 py-12 px-4">
+    <div className="min-h-screen bg-[#FDF8F6] py-12 px-4">
       <div className="max-w-2xl mx-auto space-y-8">
         <div className="flex justify-between items-center px-4">
           <div className="flex flex-col items-center">
@@ -141,26 +145,33 @@ export default function OnboardingPage() {
         </div>
 
         {step === 1 && (
-          <Card>
+          <Card className="border-none shadow-sm">
             <CardHeader>
-              <CardTitle>Business Details</CardTitle>
-              <CardDescription>Tell us about your company to unlock wholesale pricing.</CardDescription>
+              <CardTitle className="text-2xl text-[#2D1B14]">Business Registration - Get Wholesale Access</CardTitle>
+              <CardDescription className="text-[#8C786F]">
+                Tell us about your company to unlock B2B pricing.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-2">
-                <Label htmlFor="business_name">Legal Business Name</Label>
+                <Label htmlFor="business_name" className="font-semibold text-[#2D1B14]">
+                  Legal Business Name
+                </Label>
                 <Input
                   id="business_name"
                   name="business_name"
+                  className="border-[#E5D5D0]"
                   value={formData.business_name}
                   onChange={handleInputChange}
                   required
                 />
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="business_type">Business Type</Label>
+                <Label htmlFor="business_type" className="font-semibold text-[#2D1B14]">
+                  Business Type
+                </Label>
                 <Select onValueChange={handleSelectChange} value={formData.business_type}>
-                  <SelectTrigger id="business_type">
+                  <SelectTrigger id="business_type" className="border-[#E5D5D0]">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
@@ -168,69 +179,123 @@ export default function OnboardingPage() {
                     <SelectItem value="wholesaler">Wholesaler</SelectItem>
                     <SelectItem value="manufacturer">Manufacturer</SelectItem>
                     <SelectItem value="restaurant">Restaurant / Catering</SelectItem>
+                    <SelectItem value="hotel">Hotel</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              <div className="grid gap-2">
-                <Label htmlFor="vat_number">VAT / Tax Identification Number</Label>
-                <Input
-                  id="vat_number"
-                  name="vat_number"
-                  placeholder="e.g. GB123456789"
-                  value={formData.vat_number}
-                  onChange={handleInputChange}
-                />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid gap-2">
+                  <Label htmlFor="gst_number" className="font-semibold text-[#2D1B14]">
+                    GST Number (15 digits)
+                  </Label>
+                  <Input
+                    id="gst_number"
+                    name="gst_number"
+                    placeholder="27AAAAA0000A1Z5"
+                    maxLength={15}
+                    className="border-[#E5D5D0]"
+                    value={formData.gst_number}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label htmlFor="fssai_number" className="font-semibold text-[#2D1B14]">
+                    FSSAI Number (14 digits)
+                  </Label>
+                  <Input
+                    id="fssai_number"
+                    name="fssai_number"
+                    placeholder="12345678901234"
+                    maxLength={14}
+                    className="border-[#E5D5D0]"
+                    value={formData.fssai_number}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
             </CardContent>
             <CardFooter>
               <Button
-                className="w-full"
+                className="w-full bg-[#6F4E37] hover:bg-[#5D402E] text-white font-bold h-12 rounded-xl"
                 onClick={() => setStep(2)}
                 disabled={!formData.business_name || !formData.business_type}
               >
-                Continue to Address
+                Continue to Verification
               </Button>
             </CardFooter>
           </Card>
         )}
 
         {step === 2 && (
-          <Card>
+          <Card className="border-none shadow-sm">
             <CardHeader>
-              <CardTitle>Contact & Address</CardTitle>
-              <CardDescription>Where should we deliver your wholesale orders?</CardDescription>
+              <CardTitle className="text-2xl text-[#2D1B14]">Contact & Verification</CardTitle>
+              <CardDescription className="text-[#8C786F]">
+                Upload documents and provide your business contact details.
+              </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-2">
-                <Label htmlFor="phone">Business Phone Number</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+1 (555) 000-0000"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
+                <Label htmlFor="phone" className="font-semibold text-[#2D1B14]">
+                  Phone Number (Indian Format)
+                </Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">+91</span>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="9876543210"
+                    maxLength={10}
+                    className="pl-12 border-[#E5D5D0]"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                  />
+                </div>
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="address">Registered Business Address</Label>
+                <Label htmlFor="address" className="font-semibold text-[#2D1B14]">
+                  Registered Business Address
+                </Label>
                 <Textarea
                   id="address"
                   name="address"
                   placeholder="Full address, city, state, postal code"
-                  rows={4}
+                  rows={3}
+                  className="border-[#E5D5D0]"
                   value={formData.address}
                   onChange={handleInputChange}
                 />
               </div>
+              <div className="grid gap-2">
+                <Label className="font-semibold text-[#2D1B14]">Important Documents (GST/FSSAI Certificate)</Label>
+                <div className="border-2 border-dashed border-[#E5D5D0] rounded-xl p-6 text-center hover:bg-white transition-colors cursor-pointer">
+                  <input type="file" className="hidden" id="doc-upload" multiple accept=".pdf,.jpg,.png" />
+                  <Label htmlFor="doc-upload" className="cursor-pointer">
+                    <div className="flex flex-col items-center">
+                      <FileText className="w-10 h-10 text-[#6F4E37] mb-2" />
+                      <span className="text-sm font-medium text-[#2D1B14]">Click to upload or drag and drop</span>
+                      <span className="text-xs text-[#8C786F] mt-1">PDF, JPG, PNG (Max 5MB each)</span>
+                    </div>
+                  </Label>
+                </div>
+              </div>
             </CardContent>
             <CardFooter className="flex gap-4">
-              <Button variant="outline" className="flex-1 bg-transparent" onClick={() => setStep(1)}>
+              <Button
+                variant="outline"
+                className="flex-1 bg-transparent border-[#E5D5D0] text-[#6F4E37] h-12 rounded-xl"
+                onClick={() => setStep(1)}
+              >
                 Back
               </Button>
-              <Button className="flex-1" onClick={handleSubmit} disabled={isLoading}>
+              <Button
+                className="flex-1 bg-[#6F4E37] hover:bg-[#5D402E] text-white font-bold h-12 rounded-xl"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Submit Application
+                Submit Verification
               </Button>
             </CardFooter>
           </Card>

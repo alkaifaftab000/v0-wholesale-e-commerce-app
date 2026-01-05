@@ -8,7 +8,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "GrainEx | Premium Wholesale B2B Marketplace",
+  title: "Shyam Wholesale Solutions | Premium Wholesale B2B Marketplace",
   description: "Direct wholesale marketplace for grains, pulses, rice, and premium flours.",
   generator: "v0.app",
   icons: {

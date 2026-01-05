@@ -33,7 +33,7 @@ export default function LandingPage() {
       {/* Navigation */}
       <header className="px-4 lg:px-6 h-16 flex items-center border-b bg-background/95 backdrop-blur sticky top-0 z-50">
         <Link className="flex items-center justify-center" href="/">
-          <span className="font-bold text-2xl tracking-tight text-primary">GrainEx</span>
+          <span className="font-bold text-2xl tracking-tight text-primary">Shyam Wholesale Solutions</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
           <Link className="text-sm font-medium hover:text-primary transition-colors" href="#categories">
@@ -167,7 +167,8 @@ export default function LandingPage() {
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Ready to Secure Your Supply Chain?</h2>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mx-auto">
-                  Join hundreds of verified businesses sourcing premium grains and pulses directly from GrainEx.
+                  Join hundreds of verified businesses sourcing premium grains and pulses directly from Shyam Wholesale
+                  Solutions.
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
@@ -184,7 +185,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-background">
-        <p className="text-xs text-muted-foreground">© 2026 GrainEx Wholesale. All rights reserved.</p>
+        <p className="text-xs text-muted-foreground">© 2026 Shyam Wholesale Solutions. All rights reserved.</p>
         <nav className="sm:ml-auto flex gap-4 sm:gap-6">
           <Link className="text-xs hover:underline underline-offset-4" href="#">
             Terms of Service
