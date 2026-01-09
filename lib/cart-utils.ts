@@ -101,3 +101,8 @@ export const removeFromCart = (userId: string, cartItemId: string): { success: b
 export const clearCart = (userId: string) => {
   saveCart(userId, { items: [], subtotal: 0, gst: 0, deliveryCharge: 0, total: 0 })
 }
+
+export const getCartItemCount = (userId: string): number => {
+  const cart = getCart(userId)
+  return cart.items.length
+}
