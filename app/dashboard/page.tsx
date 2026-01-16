@@ -1,29 +1,11 @@
-import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ShoppingCart, Package, Settings, LogOut } from "lucide-react"
 import Link from "next/link"
 
-export default async function DashboardPage() {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) {
-    redirect("/auth/login")
-  }
-
-  const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
-
-  if (profile?.registration_status !== "verified") {
-    redirect("/onboarding")
-  }
-
+export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-muted/20">
-      {/* Sidebar Placeholder */}
       <aside className="w-64 border-r bg-background hidden md:flex flex-col p-6">
         <h1 className="text-xl font-bold text-primary mb-8">Shyam Wholesale Solutions</h1>
         <nav className="space-y-2 flex-1">
@@ -50,15 +32,14 @@ export default async function DashboardPage() {
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 p-8">
         <header className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">Wholesale Dashboard</h2>
-            <p className="text-muted-foreground">Welcome back, {profile.business_name}</p>
+            <p className="text-muted-foreground">Welcome to Shyam Wholesale Solutions</p>
           </div>
           <Badge variant="outline" className="bg-green-500/10 text-green-600 border-green-200">
-            Verified Business
+            Premium Access
           </Badge>
         </header>
 
@@ -73,14 +54,13 @@ export default async function DashboardPage() {
               <p className="text-xs text-muted-foreground">+2% from last week</p>
             </CardContent>
           </Card>
-          {/* Add more metric cards as needed */}
         </div>
 
         <div className="bg-background rounded-xl border shadow-sm p-6 text-center py-20">
           <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
           <h3 className="text-lg font-semibold">Ready to Order?</h3>
           <p className="text-muted-foreground max-w-sm mx-auto mb-6">
-            Your business is verified. You now have full access to our premium inventory and wholesale pricing.
+            Browse our premium inventory and explore wholesale pricing.
           </p>
           <button className="bg-primary text-primary-foreground px-6 py-2 rounded-md font-medium hover:opacity-90">
             Browse Full Catalog

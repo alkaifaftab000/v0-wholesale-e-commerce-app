@@ -1,11 +1,9 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
 import { getCart, updateCartItemQuantity, removeFromCart } from "@/lib/cart-utils"
 import type { Cart } from "@/lib/types"
 import { Button } from "@/components/ui/button"
@@ -28,30 +26,18 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function CartPage() {
   const [cart, setCart] = useState<Cart | null>(null)
-  const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { toast } = useToast()
-  const supabase = createClient()
+  const guestUserId = "guest-user"
 
   useEffect(() => {
-    const init = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        router.push("/auth/login")
-        return
-      }
-      setUser(user)
-      setCart(getCart(user.id))
-      setIsLoading(false)
-    }
-    init()
-  }, [supabase, router])
+    setCart(getCart(guestUserId))
+    setIsLoading(false)
+  }, [])
 
   const handleUpdateQuantity = (cartItemId: string, delta: number) => {
-    if (!user || !cart) return
+    if (!cart) return
 
     const item = cart.items.find((i) => i.cartItemId === cartItemId)
     if (!item) return
@@ -59,17 +45,15 @@ export default function CartPage() {
     const newQuantity = item.quantity + delta
     if (newQuantity < 1) return
 
-    const result = updateCartItemQuantity(user.id, cartItemId, newQuantity)
+    const result = updateCartItemQuantity(guestUserId, cartItemId, newQuantity)
     if (result.success) {
       setCart({ ...result.cart })
-      // Sync with other tabs/components
       window.dispatchEvent(new Event("storage"))
     }
   }
 
   const handleRemoveItem = (cartItemId: string) => {
-    if (!user) return
-    const result = removeFromCart(user.id, cartItemId)
+    const result = removeFromCart(guestUserId, cartItemId)
     if (result.success) {
       setCart({ ...result.cart })
       window.dispatchEvent(new Event("storage"))
@@ -126,7 +110,6 @@ export default function CartPage() {
       <main className="container max-w-7xl mx-auto p-4 md:p-8">
         <div className="grid lg:grid-cols-[1fr_380px] gap-8">
           <div className="space-y-6">
-            {/* Cart Items */}
             <div className="space-y-4">
               {cart.items.map((item) => (
                 <Card key={item.cartItemId} className="border-none shadow-sm overflow-hidden group">
@@ -205,7 +188,6 @@ export default function CartPage() {
               ))}
             </div>
 
-            {/* Guarantees */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-start gap-3 p-4 bg-white rounded-2xl shadow-sm border border-[#E5D5D0]/50">
                 <Truck className="h-5 w-5 text-[#6F4E37] shrink-0 mt-1" />
@@ -224,7 +206,6 @@ export default function CartPage() {
             </div>
           </div>
 
-          {/* Summary Sidebar */}
           <aside className="space-y-6">
             <Card className="border-none shadow-md overflow-hidden sticky top-28">
               <CardHeader className="bg-[#6F4E37] text-white">
@@ -295,10 +276,9 @@ export default function CartPage() {
             </Card>
 
             <div className="bg-white/50 border border-[#E5D5D0] p-6 rounded-2xl text-center space-y-3">
-              <p className="text-xs font-bold text-[#2D1B14] uppercase tracking-wider">Business Verification</p>
+              <p className="text-xs font-bold text-[#2D1B14] uppercase tracking-wider">Wholesale Orders</p>
               <p className="text-[10px] text-muted-foreground leading-relaxed">
-                As a verified business partner, your wholesale pricing is locked for 24 hours. Complete your purchase
-                soon to ensure availability.
+                Browse and order premium wholesale products directly from Shyam Wholesale Solutions.
               </p>
             </div>
           </aside>

@@ -1,11 +1,9 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { createClient } from "@/lib/supabase/client"
 import { getCart, clearCart } from "@/lib/cart-utils"
 import type { Cart, DeliveryAddress } from "@/lib/types"
 import { Button } from "@/components/ui/button"
@@ -21,15 +19,13 @@ import { useToast } from "@/hooks/use-toast"
 export default function CheckoutPage() {
   const [step, setStep] = useState(1)
   const [cart, setCart] = useState<Cart | null>(null)
-  const [user, setUser] = useState<any>(null)
-  const [profile, setProfile] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isProcessing, setIsProcessing] = useState(false)
   const [addressOption, setAddressOption] = useState("registered")
   const [paymentMethod, setPaymentMethod] = useState("cod")
   const router = useRouter()
   const { toast } = useToast()
-  const supabase = createClient()
+  const guestUserId = "guest-user"
 
   const [address, setAddress] = useState<DeliveryAddress>({
     addressLine1: "",
@@ -41,53 +37,25 @@ export default function CheckoutPage() {
   })
 
   useEffect(() => {
-    const init = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        router.push("/auth/login")
-        return
-      }
-      setUser(user)
-
-      const { data: profileData } = await supabase.from("profiles").select("*").eq("id", user.id).single()
-      setProfile(profileData)
-
-      const userCart = getCart(user.id)
-      if (!userCart || userCart.items.length === 0) {
-        router.push("/cart")
-        return
-      }
-      setCart(userCart)
-
-      // Initialize address with profile data
-      if (profileData) {
-        setAddress((prev) => ({
-          ...prev,
-          addressLine1: profileData.address || "",
-          contactPerson: profileData.business_name || "",
-          phone: profileData.phone || "",
-        }))
-      }
-
-      setIsLoading(false)
+    const userCart = getCart(guestUserId)
+    if (!userCart || userCart.items.length === 0) {
+      router.push("/cart")
+      return
     }
-    init()
-  }, [supabase, router])
+    setCart(userCart)
+    setIsLoading(false)
+  }, [router])
 
   const handlePlaceOrder = async () => {
     setIsProcessing(true)
-    console.log("[v0] Placing order for user:", user?.id, "Total:", cart?.total)
-    // Simulate API call
+    console.log("[v0] Placing order. Total:", cart?.total)
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    if (user) {
-      clearCart(user.id)
-      console.log("[v0] Order placed successfully, cart cleared")
-      window.dispatchEvent(new Event("storage"))
-      setStep(4)
-    }
+    clearCart(guestUserId)
+    console.log("[v0] Order placed successfully, cart cleared")
+    window.dispatchEvent(new Event("storage"))
+    setStep(4)
+
     setIsProcessing(false)
   }
 
@@ -101,7 +69,6 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F6]">
-      {/* Checkout Header */}
       <header className="bg-white border-b h-20 flex items-center sticky top-0 z-50">
         <div className="container max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -151,7 +118,6 @@ export default function CheckoutPage() {
         {step < 4 ? (
           <div className="grid lg:grid-cols-[1fr_380px] gap-8">
             <div className="space-y-6">
-              {/* Step 1: Review Order */}
               {step === 1 && (
                 <Card className="border-none shadow-sm overflow-hidden">
                   <CardHeader className="bg-white border-b">
@@ -193,7 +159,6 @@ export default function CheckoutPage() {
                 </Card>
               )}
 
-              {/* Step 2: Delivery Address */}
               {step === 2 && (
                 <Card className="border-none shadow-sm overflow-hidden">
                   <CardHeader className="bg-white border-b">
@@ -210,17 +175,11 @@ export default function CheckoutPage() {
                         <Label htmlFor="registered" className="flex-1 cursor-pointer">
                           <div className="flex justify-between items-start mb-2">
                             <span className="font-extrabold text-[#2D1B14] flex items-center gap-2">
-                              <Building2 className="h-4 w-4" /> Registered Business Address
+                              <Building2 className="h-4 w-4" /> Default Address
                             </span>
                             <Badge className="bg-[#6F4E37] text-white text-[10px]">Default</Badge>
                           </div>
-                          <p className="text-sm text-[#8C786F] leading-relaxed">
-                            {profile?.address || "Address not specified"}
-                          </p>
-                          <div className="mt-3 flex gap-4 text-[10px] font-bold text-[#6F4E37] uppercase tracking-wider">
-                            <span>Phone: +91 {profile?.phone}</span>
-                            <span>GST: {profile?.gst_number}</span>
-                          </div>
+                          <p className="text-sm text-[#8C786F] leading-relaxed">Enter your delivery address</p>
                         </Label>
                       </div>
 
@@ -265,7 +224,6 @@ export default function CheckoutPage() {
                 </Card>
               )}
 
-              {/* Step 3: Payment Method */}
               {step === 3 && (
                 <Card className="border-none shadow-sm overflow-hidden">
                   <CardHeader className="bg-white border-b">
@@ -319,7 +277,6 @@ export default function CheckoutPage() {
               )}
             </div>
 
-            {/* Price Summary Sidebar */}
             <aside className="space-y-6">
               <Card className="border-none shadow-md overflow-hidden sticky top-28">
                 <CardHeader className="bg-[#2D1B14] text-white">
@@ -351,9 +308,11 @@ export default function CheckoutPage() {
                   <div className="pt-4 p-4 bg-[#FDF8F6] rounded-xl flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-green-700">Locked Pricing</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-green-700">
+                        Order Processing
+                      </p>
                       <p className="text-[10px] text-[#8C786F] leading-tight">
-                        Wholesale rates are secured for this session based on your business tier.
+                        Your order will be processed and confirmed shortly.
                       </p>
                     </div>
                   </div>
@@ -362,15 +321,13 @@ export default function CheckoutPage() {
             </aside>
           </div>
         ) : (
-          /* Step 4: Success State */
           <div className="max-w-2xl mx-auto py-12 text-center animate-in zoom-in-95 duration-500">
             <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
               <CheckCircle2 className="h-12 w-12 text-green-600" />
             </div>
             <h1 className="text-4xl font-black text-[#2D1B14] mb-4">Order Placed Successfully!</h1>
             <p className="text-lg text-[#8C786F] mb-12">
-              Your wholesale order #SH-928374 has been confirmed. You will receive a copy of the proforma invoice on{" "}
-              <span className="font-bold text-[#2D1B14]">{user?.email}</span> shortly.
+              Your wholesale order has been confirmed and is being processed.
             </p>
 
             <div className="grid md:grid-cols-2 gap-4 mb-12">
@@ -378,9 +335,9 @@ export default function CheckoutPage() {
                 <p className="text-[10px] font-black uppercase text-[#8C786F] mb-2 tracking-widest">Next Steps</p>
                 <ul className="space-y-3">
                   {[
-                    "Account manager will call for scheduling",
                     "Shipment preparation begins (24-48h)",
-                    "Track real-time via dashboard",
+                    "Track status via dashboard",
+                    "Delivery within 3-5 business days",
                   ].map((item, i) => (
                     <li key={i} className="flex items-center gap-2 text-sm font-bold text-[#2D1B14]">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#6F4E37]" />
@@ -391,24 +348,19 @@ export default function CheckoutPage() {
               </Card>
               <Card className="text-left border-none shadow-sm p-6 bg-white">
                 <p className="text-[10px] font-black uppercase text-[#8C786F] mb-2 tracking-widest">Support</p>
-                <p className="text-sm font-bold text-[#2D1B14] mb-2">Need to adjust your order?</p>
+                <p className="text-sm font-bold text-[#2D1B14] mb-2">Need assistance?</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Call your dedicated relationship manager at +91 1800-SHYAM-99 or email us at
-                  support@shyamwholesale.com
+                  Contact us at +91 1800-SHYAM-99 or support@shyamwholesale.com
                 </p>
               </Card>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="bg-[#6F4E37] hover:bg-[#5D402E] font-bold h-14 px-12 rounded-xl">
-                <Link href="/dashboard">Return to Dashboard</Link>
+                <Link href="/dashboard">Continue Shopping</Link>
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-[#E5D5D0] text-[#6F4E37] font-bold h-14 px-12 rounded-xl bg-white"
-              >
-                Print Order Receipt
+              <Button asChild variant="outline" size="lg" className="h-14 px-12 rounded-xl font-bold bg-transparent">
+                <Link href="/">Back to Home</Link>
               </Button>
             </div>
           </div>

@@ -29,12 +29,15 @@ export default function SignUpPage() {
     setError(null)
 
     try {
+      // The environment variable is no longer needed since window.location.origin
+      // automatically resolves to the correct URL in both dev and production
+      const redirectUrl = `${window.location.origin}/auth/callback`
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          emailRedirectTo:
-            process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/auth/callback`,
+          emailRedirectTo: redirectUrl,
           data: {
             business_name: businessName,
             registration_status: "pending",
