@@ -33,35 +33,35 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: If you remove getUser() and you use server-side rendering
   // with the Supabase client, your users may be randomly logged out.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser()
 
-  if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/auth/login"
-    return NextResponse.redirect(url)
-  }
+  // if (request.nextUrl.pathname.startsWith("/dashboard") && !user) {
+  //   const url = request.nextUrl.clone()
+  //   url.pathname = "/auth/login"
+  //   return NextResponse.redirect(url)
+  // }
 
-  if (user) {
-    const { data: profile } = await supabase.from("profiles").select("registration_status").eq("id", user.id).single()
+  // if (user) {
+  //   const { data: profile } = await supabase.from("profiles").select("registration_status").eq("id", user.id).single()
 
-    const isVerified = profile?.registration_status === "verified"
-    const isOnboarding = request.nextUrl.pathname.startsWith("/onboarding")
-    const isDashboard = request.nextUrl.pathname.startsWith("/dashboard")
+  //   const isVerified = profile?.registration_status === "verified"
+  //   const isOnboarding = request.nextUrl.pathname.startsWith("/onboarding")
+  //   const isDashboard = request.nextUrl.pathname.startsWith("/dashboard")
 
-    if (isDashboard && !isVerified) {
-      const url = request.nextUrl.clone()
-      url.pathname = "/onboarding"
-      return NextResponse.redirect(url)
-    }
+  //   if (isDashboard && !isVerified) {
+  //     const url = request.nextUrl.clone()
+  //     url.pathname = "/onboarding"
+  //     return NextResponse.redirect(url)
+  //   }
 
-    if (isOnboarding && isVerified) {
-      const url = request.nextUrl.clone()
-      url.pathname = "/dashboard"
-      return NextResponse.redirect(url)
-    }
-  }
+  //   if (isOnboarding && isVerified) {
+  //     const url = request.nextUrl.clone()
+  //     url.pathname = "/dashboard"
+  //     return NextResponse.redirect(url)
+  //   }
+  // }
 
   return supabaseResponse
 }

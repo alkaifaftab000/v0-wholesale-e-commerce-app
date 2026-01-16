@@ -1,26 +1,18 @@
 "use client"
 
 import Link from "next/link"
-
 import type React from "react"
-
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { Loader2, CheckCircle2, Building2, FileText } from "lucide-react"
+import { CheckCircle2, Building2, FileText } from "lucide-react"
 
 export default function OnboardingPage() {
   const [step, setStep] = useState(1)
-  const [isLoading, setIsLoading] = useState(true) // Set initial loading to true
-  const [user, setUser] = useState<any>(null)
-  const router = useRouter()
-  const supabase = createClient()
 
   const [formData, setFormData] = useState({
     business_name: "",
@@ -30,46 +22,6 @@ export default function OnboardingPage() {
     address: "",
     phone: "",
   })
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        router.push("/auth/login")
-        return
-      }
-      setUser(user)
-
-      const { data: profile } = await supabase.from("profiles").select("*").eq("id", user.id).single()
-
-      if (profile) {
-        if (profile.registration_status === "verified") {
-          router.push("/dashboard")
-          return
-        }
-        if (profile.registration_status === "pending") {
-          setStep(3)
-          setFormData({
-            business_name: profile.business_name || "",
-            business_type: profile.business_type || "",
-            gst_number: profile.gst_number || "",
-            fssai_number: profile.fssai_number || "",
-            address: profile.address || "",
-            phone: profile.phone || "",
-          })
-        }
-      } else {
-        setFormData((prev) => ({
-          ...prev,
-          business_name: user.user_metadata?.business_name || "",
-        }))
-      }
-      setIsLoading(false)
-    }
-    checkUser()
-  }, [supabase, router])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -82,34 +34,7 @@ export default function OnboardingPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
-    console.log("[v0] Submitting business verification for user:", user?.id, formData)
-
-    try {
-      const { error } = await supabase.from("profiles").upsert({
-        id: user.id,
-        ...formData,
-        registration_status: "pending",
-        updated_at: new Date().toISOString(),
-      })
-
-      if (error) throw error
-
-      console.log("[v0] Verification submitted successfully")
-      setStep(3)
-    } catch (error: any) {
-      console.error("[v0] Error updating profile:", error.message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  if (isLoading || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
-      </div>
-    )
+    setStep(3)
   }
 
   return (
@@ -292,9 +217,7 @@ export default function OnboardingPage() {
               <Button
                 className="flex-1 bg-[#6F4E37] hover:bg-[#5D402E] text-white font-bold h-12 rounded-xl"
                 onClick={handleSubmit}
-                disabled={isLoading}
               >
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Submit Verification
               </Button>
             </CardFooter>
@@ -319,7 +242,7 @@ export default function OnboardingPage() {
                 </h4>
                 <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                   <li>Review process usually takes 24-48 hours</li>
-                  <li>We may reach out via {user.email} for document verification</li>
+                  <li>We will contact you via email for document verification</li>
                   <li>Once verified, you will receive full access to our catalog and pricing</li>
                 </ul>
               </div>
