@@ -148,7 +148,7 @@ export default function LandingPage() {
                     <h3 className="font-bold text-xl mb-2">{category.name}</h3>
                     <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
                     <Link
-                      href="/auth/login"
+                      href={`/category/${category.name.toLowerCase()}`}
                       className="text-sm font-semibold text-primary flex items-center hover:underline"
                     >
                       View Inventory <ChevronRight className="ml-1 h-4 w-4" />
@@ -173,10 +173,10 @@ export default function LandingPage() {
               </div>
               <div className="w-full max-w-sm space-y-2">
                 <Button asChild className="w-full" size="lg">
-                  <Link href="/auth/sign-up">Apply for Wholesale Account</Link>
+                  <Link href="/category/grains">Browse Wholesale Catalog</Link>
                 </Button>
                 <p className="text-xs text-muted-foreground">
-                  Verification typically takes 24-48 hours. Business documents required.
+                  No registration required. Start browsing pricing and inventory instantly.
                 </p>
               </div>
             </div>

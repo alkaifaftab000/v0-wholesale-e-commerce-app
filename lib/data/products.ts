@@ -7,13 +7,22 @@ export interface Product {
   pricePerQuintal: number
   stock: "in-stock" | "out-of-stock"
   stockQuantity: number
-  brandLogo?: string
   image?: string
+  quintalPerLot?: number
+  productImage?: string
 }
 
 // Helper function to generate random price within a range
 const getRandomPrice = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+const productImages = {
+  wheat: "https://images.unsplash.com/photo-1574080240211-0a8860c301fa?w=400&h=300&fit=crop",
+  maize: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&h=300&fit=crop",
+  pulses: "https://images.unsplash.com/photo-1585518419759-47a49bda6b57?w=400&h=300&fit=crop",
+  rice: "https://images.unsplash.com/photo-1586985289688-cacf313cc330?w=400&h=300&fit=crop",
+  flour: "https://images.unsplash.com/photo-1574080240211-0a8860c301fa?w=400&h=300&fit=crop",
 }
 
 export const PRODUCTS: Product[] = [
@@ -28,6 +37,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(1000, 3000),
     stock: "in-stock",
     stockQuantity: 500,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
   {
     id: "g2",
@@ -38,6 +49,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(1000, 3000),
     stock: "in-stock",
     stockQuantity: 450,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
   {
     id: "g3",
@@ -48,6 +61,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(1000, 3000),
     stock: "in-stock",
     stockQuantity: 480,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
 
   // Maize/Corn (8000-11000)
@@ -60,6 +75,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(8000, 11000),
     stock: "in-stock",
     stockQuantity: 300,
+    quintalPerLot: 1.5,
+    productImage: productImages.maize,
   },
   {
     id: "g5",
@@ -70,6 +87,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(8000, 11000),
     stock: "in-stock",
     stockQuantity: 280,
+    quintalPerLot: 1.5,
+    productImage: productImages.maize,
   },
   {
     id: "g6",
@@ -80,6 +99,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(8000, 11000),
     stock: "in-stock",
     stockQuantity: 320,
+    quintalPerLot: 1.5,
+    productImage: productImages.maize,
   },
 
   // Sorghum/Jowar (10000-12000)
@@ -92,6 +113,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(10000, 12000),
     stock: "in-stock",
     stockQuantity: 250,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
   {
     id: "g8",
@@ -102,6 +125,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(10000, 12000),
     stock: "in-stock",
     stockQuantity: 240,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
 
   // Pearl Millet/Bajra (11000-12000)
@@ -114,6 +139,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(11000, 12000),
     stock: "in-stock",
     stockQuantity: 220,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
   {
     id: "g10",
@@ -124,6 +151,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(11000, 12000),
     stock: "in-stock",
     stockQuantity: 210,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
 
   // Finger Millet/Ragi (9000-12000)
@@ -136,6 +165,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 200,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
   {
     id: "g12",
@@ -146,6 +177,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 190,
+    quintalPerLot: 1.5,
+    productImage: productImages.wheat,
   },
 
   // ===== PULSES =====
@@ -159,6 +192,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 200,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p2",
@@ -169,6 +204,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 180,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p3",
@@ -179,6 +216,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 170,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
 
   // Arhar/Toor (9000-12000)
@@ -191,6 +230,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 190,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p5",
@@ -201,6 +242,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 185,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p6",
@@ -211,6 +254,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 175,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
 
   // Urad (9000-12000)
@@ -223,6 +268,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 160,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p8",
@@ -233,6 +280,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 155,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p9",
@@ -243,6 +292,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 150,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
 
   // Masoor (9000-12000)
@@ -255,6 +306,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 170,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p11",
@@ -265,6 +318,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 165,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
   {
     id: "p12",
@@ -275,6 +330,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 160,
+    quintalPerLot: 1.5,
+    productImage: productImages.pulses,
   },
 
   // ===== RICE =====
@@ -288,6 +345,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(13000, 15000),
     stock: "in-stock",
     stockQuantity: 300,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r2",
@@ -298,6 +357,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(13000, 15000),
     stock: "in-stock",
     stockQuantity: 290,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r3",
@@ -308,6 +369,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(13000, 15000),
     stock: "in-stock",
     stockQuantity: 280,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
 
   // Sella Rice (5000-9000)
@@ -320,6 +383,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 350,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r5",
@@ -330,6 +395,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 340,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r6",
@@ -340,6 +407,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 330,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
 
   // Mansuri Rice (5000-9000)
@@ -352,6 +421,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 310,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r8",
@@ -362,6 +433,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 300,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r9",
@@ -372,6 +445,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 9000),
     stock: "in-stock",
     stockQuantity: 290,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
 
   // Kollam Rice (11000-12000)
@@ -384,6 +459,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(11000, 12000),
     stock: "in-stock",
     stockQuantity: 250,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
   {
     id: "r11",
@@ -394,6 +471,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(11000, 12000),
     stock: "in-stock",
     stockQuantity: 240,
+    quintalPerLot: 1.5,
+    productImage: productImages.rice,
   },
 
   // ===== FLOURS =====
@@ -407,6 +486,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 8000),
     stock: "in-stock",
     stockQuantity: 280,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f2",
@@ -417,6 +498,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 8000),
     stock: "in-stock",
     stockQuantity: 270,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f3",
@@ -427,6 +510,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(5000, 8000),
     stock: "in-stock",
     stockQuantity: 290,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
 
   // UP Atta (4000-6000)
@@ -439,6 +524,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(4000, 6000),
     stock: "in-stock",
     stockQuantity: 300,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f5",
@@ -449,6 +536,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(4000, 6000),
     stock: "in-stock",
     stockQuantity: 310,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f6",
@@ -459,6 +548,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(4000, 6000),
     stock: "in-stock",
     stockQuantity: 320,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f7",
@@ -469,6 +560,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(4000, 6000),
     stock: "in-stock",
     stockQuantity: 300,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
 
   // Multi Grain Atta (9000-12000)
@@ -481,6 +574,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 200,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f9",
@@ -491,6 +586,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 210,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
   {
     id: "f10",
@@ -501,6 +598,8 @@ export const PRODUCTS: Product[] = [
     pricePerQuintal: getRandomPrice(9000, 12000),
     stock: "in-stock",
     stockQuantity: 220,
+    quintalPerLot: 1.5,
+    productImage: productImages.flour,
   },
 ]
 
@@ -510,3 +609,11 @@ export const CATEGORIES = [
   { id: "rice", name: "Rice", description: "Basmati, Sella, Mansuri, Kollam" },
   { id: "flours", name: "Flours", description: "MP Atta, UP Atta, Multi-grain Atta" },
 ]
+
+export function getUniqueBrands(category: string): string[] {
+  return [...new Set(PRODUCTS.filter((p) => p.category === category).map((p) => p.brand))].sort()
+}
+
+export function getUniqueSubcategories(category: string): string[] {
+  return [...new Set(PRODUCTS.filter((p) => p.category === category).map((p) => p.subcategory))].sort()
+}

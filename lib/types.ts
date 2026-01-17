@@ -5,8 +5,10 @@ export interface Product {
   brand: string
   productName: string
   pricePerQuintal: number
-  stock: "in-stock" | "out-of-stock"
+  stock: "in-stock" | "out-of-stock" | "limited"
   stockQuantity: number
+  productImage: string
+  quintalPerLot: number
   brandLogo?: string
   image?: string
 }
