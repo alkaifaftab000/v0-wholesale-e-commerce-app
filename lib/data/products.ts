@@ -1,16 +1,4 @@
-export interface Product {
-  id: string
-  category: "grains" | "pulses" | "rice" | "flours"
-  subcategory: string
-  brand: string
-  productName: string
-  pricePerQuintal: number
-  stock: "in-stock" | "out-of-stock"
-  stockQuantity: number
-  image?: string
-  quintalPerLot?: number
-  productImage?: string
-}
+import type { Product } from "@/lib/types"
 
 // Helper function to generate random price within a range
 const getRandomPrice = (min: number, max: number): number => {
@@ -38,7 +26,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 500,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/brands/sujatagold_logo.jpg", // Fallback
+    brandImage: "/images/brands/sujatagold_logo.jpg",
   },
   {
     id: "g2",
@@ -50,7 +39,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 450,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/brands/tanatan_logo.jpg", // Fallback
+    brandImage: "/images/brands/tanatan_logo.jpg",
   },
   {
     id: "g3",
@@ -62,7 +52,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 480,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/brands/Sarbatimoti_logo.jpg", // Fallback
+    brandImage: "/images/brands/Sarbatimoti_logo.jpg",
   },
 
   // Maize/Corn (8000-11000)
@@ -76,7 +67,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 300,
     quintalPerLot: 1.5,
-    productImage: productImages.maize,
+    productImage: "/images/products/Premium_Maize.jpg",
+    brandImage: "/images/brands/Panshree_logo.jpg",
   },
   {
     id: "g5",
@@ -88,7 +80,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 280,
     quintalPerLot: 1.5,
-    productImage: productImages.maize,
+    productImage: "/images/products/Rajdhani_Maize.jpg",
+    brandImage: "/images/brands/Rajdhani_logo.jpg",
   },
   {
     id: "g6",
@@ -100,7 +93,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 320,
     quintalPerLot: 1.5,
-    productImage: productImages.maize,
+    productImage: "/images/products/Murliwala_Maize.jpg",
+    brandImage: "/images/brands/Murliwala__logo.jpg",
   },
 
   // Sorghum/Jowar (10000-12000)
@@ -114,7 +108,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 250,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/products/Premium_Jowar.jpg",
+    brandImage: "/images/brands/Murliwala__logo.jpg",
   },
   {
     id: "g8",
@@ -126,7 +121,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 240,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/products/Manik_Jowar.jpg",
+    brandImage: "/images/brands/Manik_logo.jpg",
   },
 
   // Pearl Millet/Bajra (11000-12000)
@@ -140,7 +136,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 220,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/products/Premium_Bajra.jpg",
+    brandImage: "/images/brands/Murliwala__logo.jpg",
   },
   {
     id: "g10",
@@ -152,7 +149,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 210,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/products/Panshree_Bajra.jpg",
+    brandImage: "/images/brands/Panshree_logo.jpg",
   },
 
   // Finger Millet/Ragi (9000-12000)
@@ -166,7 +164,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 200,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/products/Ashok_Ragi.jpg",
+    brandImage: "/images/brands/Ashok_logo.jpg",
   },
   {
     id: "g12",
@@ -178,7 +177,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 190,
     quintalPerLot: 1.5,
-    productImage: productImages.wheat,
+    productImage: "/images/brands/tanatan_logo.jpg", // Fallback
+    brandImage: "/images/brands/tanatan_logo.jpg",
   },
 
   // ===== PULSES =====
@@ -193,7 +193,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 200,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Tata_Sampan_Moong.jpg",
+    brandImage: "/images/brands/Tata_Sampan_logo.jpg",
   },
   {
     id: "p2",
@@ -205,7 +206,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 180,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Rajdhani_Moong.jpg",
+    brandImage: "/images/brands/Rajdhani_logo.jpg",
   },
   {
     id: "p3",
@@ -217,7 +219,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 170,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Mangat_Ram_Moong.jfif",
+    brandImage: "/images/brands/MangatRam_logo.jpg",
   },
 
   // Arhar/Toor (9000-12000)
@@ -231,7 +234,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 190,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Tata_Sampan_Arhar.jpg",
+    brandImage: "/images/brands/Tata_Sampan_logo.jpg",
   },
   {
     id: "p5",
@@ -243,7 +247,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 185,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Rajdhani_Arhar.jpg",
+    brandImage: "/images/brands/Rajdhani_logo.jpg",
   },
   {
     id: "p6",
@@ -255,7 +260,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 175,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/brands/MangatRam_logo.jpg", // Fallback
+    brandImage: "/images/brands/MangatRam_logo.jpg",
   },
 
   // Urad (9000-12000)
@@ -269,7 +275,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 160,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Tata_Sampan_Urad.jpg",
+    brandImage: "/images/brands/Tata_Sampan_logo.jpg",
   },
   {
     id: "p8",
@@ -281,7 +288,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 155,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Rajdhani_Urad.jpg",
+    brandImage: "/images/brands/Rajdhani_logo.jpg",
   },
   {
     id: "p9",
@@ -293,7 +301,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 150,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/brands/MangatRam_logo.jpg", // Fallback
+    brandImage: "/images/brands/MangatRam_logo.jpg",
   },
 
   // Masoor (9000-12000)
@@ -307,7 +316,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 170,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Tata_Sampan_Masoor.jpg",
+    brandImage: "/images/brands/Tata_Sampan_logo.jpg",
   },
   {
     id: "p11",
@@ -319,7 +329,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 165,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/products/Rajdhani_Masoor.jpg",
+    brandImage: "/images/brands/Rajdhani_logo.jpg",
   },
   {
     id: "p12",
@@ -331,7 +342,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 160,
     quintalPerLot: 1.5,
-    productImage: productImages.pulses,
+    productImage: "/images/brands/MangatRam_logo.jpg", // Fallback
+    brandImage: "/images/brands/MangatRam_logo.jpg",
   },
 
   // ===== RICE =====
@@ -346,7 +358,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 300,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Galaxy_Basmati.jfif",
+    brandImage: "/images/brands/Galaxy_logo.jpg",
   },
   {
     id: "r2",
@@ -358,7 +371,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 290,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/DC_Basmati.jfif",
+    brandImage: "/images/brands/DC_logo.jpg",
   },
   {
     id: "r3",
@@ -370,7 +384,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 280,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Sher_Khan_Basmati.jfif",
+    brandImage: "/images/brands/Sher_Khan_logo.jpg",
   },
 
   // Sella Rice (5000-9000)
@@ -384,7 +399,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 350,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/brands/Galaxy_logo.jpg", // Fallback
+    brandImage: "/images/brands/Galaxy_logo.jpg",
   },
   {
     id: "r5",
@@ -396,7 +412,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 340,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/DC Sella.jfif",
+    brandImage: "/images/brands/DC_logo.jpg",
   },
   {
     id: "r6",
@@ -408,7 +425,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 330,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Munna_Bhaiya_Sella.jfif",
+    brandImage: "/images/brands/Munna_Bhaiya_logo.jpg",
   },
 
   // Mansuri Rice (5000-9000)
@@ -422,7 +440,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 310,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Sher_Khan_Mansuri.jfif",
+    brandImage: "/images/brands/Sher_Khan_logo.jpg",
   },
   {
     id: "r8",
@@ -434,7 +453,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 300,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Jannat_Mansuri.jfif",
+    brandImage: "/images/brands/Jannat_logo.jpg",
   },
   {
     id: "r9",
@@ -446,7 +466,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 290,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Palki_Mansuri.jfif",
+    brandImage: "/images/brands/Palki_logo.jpg",
   },
 
   // Kollam Rice (11000-12000)
@@ -460,7 +481,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 250,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Laxmi_Kollam.jfif",
+    brandImage: "/images/brands/Laxmi_logo.jpg",
   },
   {
     id: "r11",
@@ -472,7 +494,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 240,
     quintalPerLot: 1.5,
-    productImage: productImages.rice,
+    productImage: "/images/products/Scooter_Kollam.jfif",
+    brandImage: "/images/brands/Scooter_logo.jpg",
   },
 
   // ===== FLOURS =====
@@ -487,7 +510,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 280,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Rishta_MP_Atta.jfif",
+    brandImage: "/images/brands/rishta_logo.jpg",
   },
   {
     id: "f2",
@@ -499,7 +523,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 270,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/KRML_MP_Atta.jfif",
+    brandImage: "/images/brands/KRML_logo.jpg",
   },
   {
     id: "f3",
@@ -511,7 +536,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 290,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Aashirwad_MP_Atta.jfif",
+    brandImage: "/images/brands/Aashirwad_logo.jpg",
   },
 
   // UP Atta (4000-6000)
@@ -525,7 +551,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 300,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Rishta_UP_Atta.jfif",
+    brandImage: "/images/brands/rishta_logo.jpg",
   },
   {
     id: "f5",
@@ -537,7 +564,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 310,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/KRML_UP_Atta.jfif",
+    brandImage: "/images/brands/KRML_logo.jpg",
   },
   {
     id: "f6",
@@ -549,7 +577,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 320,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Aashirwad_UP_Atta.jfif",
+    brandImage: "/images/brands/Aashirwad_logo.jpg",
   },
   {
     id: "f7",
@@ -561,7 +590,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 300,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Shiva_UP_Atta.jfif",
+    brandImage: "/images/brands/shiva_logo1.jpg",
   },
 
   // Multi Grain Atta (9000-12000)
@@ -575,7 +605,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 200,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Rishta_Multi_Grain.jfif",
+    brandImage: "/images/brands/rishta_logo.jpg",
   },
   {
     id: "f9",
@@ -587,7 +618,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 210,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/KRML_Multi_Grain.jfif",
+    brandImage: "/images/brands/KRML_logo.jpg",
   },
   {
     id: "f10",
@@ -599,7 +631,8 @@ export const PRODUCTS: Product[] = [
     stock: "in-stock",
     stockQuantity: 220,
     quintalPerLot: 1.5,
-    productImage: productImages.flour,
+    productImage: "/images/products/Aashirwad_Multi_Grain.jfif",
+    brandImage: "/images/brands/Aashirwad_logo.jpg",
   },
 ]
 

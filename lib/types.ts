@@ -1,6 +1,8 @@
+export type ProductCategory = "grains" | "pulses" | "rice" | "flours"
+
 export interface Product {
   id: string
-  category: "grains" | "pulses" | "rice" | "flours"
+  category: ProductCategory
   subcategory: string
   brand: string
   productName: string
@@ -10,6 +12,7 @@ export interface Product {
   productImage: string
   quintalPerLot: number
   brandLogo?: string
+  brandImage?: string
   image?: string
 }
 

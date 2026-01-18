@@ -22,7 +22,12 @@ export function DashboardHeader({ profile }: HeaderProps) {
       // Listen for cart updates
       const handleStorage = () => setCartCount(getCartItemCount(profile.id))
       window.addEventListener("storage", handleStorage)
-      return () => window.removeEventListener("storage", handleStorage)
+      window.addEventListener("cart-updated", handleStorage)
+
+      return () => {
+        window.removeEventListener("storage", handleStorage)
+        window.removeEventListener("cart-updated", handleStorage)
+      }
     }
   }, [profile?.id])
 

@@ -1,13 +1,32 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { ShoppingCart, User, Search, Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { getCartItemCount, GUEST_ID } from "@/lib/cart-utils"
 
 export function DashboardHeader() {
-  // Cart count logic will be added in cart task
-  const cartCount = 0
+  // Cart count logic
+  const [cartCount, setCartCount] = useState(0)
+
+  // Use shared guest ID for consistency
+  const userId = GUEST_ID
+
+  useEffect(() => {
+    setCartCount(getCartItemCount(userId))
+
+    const handleUpdate = () => setCartCount(getCartItemCount(userId))
+
+    window.addEventListener("storage", handleUpdate)
+    window.addEventListener("cart-updated", handleUpdate)
+
+    return () => {
+      window.removeEventListener("storage", handleUpdate)
+      window.removeEventListener("cart-updated", handleUpdate)
+    }
+  }, [])
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -16,7 +35,7 @@ export function DashboardHeader() {
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
           </Button>
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-bold text-primary">Shyam Wholesale</span>
           </Link>
         </div>
@@ -33,7 +52,7 @@ export function DashboardHeader() {
 
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" asChild>
-            <Link href="/dashboard/cart">
+            <Link href="/cart">
               <div className="relative">
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (

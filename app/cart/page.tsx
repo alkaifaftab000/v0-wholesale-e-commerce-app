@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { getCart, updateCartItemQuantity, removeFromCart } from "@/lib/cart-utils"
+import { getCart, updateCartItemQuantity, removeFromCart, GUEST_ID } from "@/lib/cart-utils"
 import type { Cart } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -29,7 +29,7 @@ export default function CartPage() {
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
   const { toast } = useToast()
-  const guestUserId = "guest-user"
+  const guestUserId = GUEST_ID
 
   useEffect(() => {
     setCart(getCart(guestUserId))
@@ -82,7 +82,7 @@ export default function CartPage() {
           <h1 className="text-2xl font-bold text-[#2D1B14] mb-2">Your cart is empty</h1>
           <p className="text-[#8C786F] mb-8">Start adding premium grains and pulses to your wholesale order.</p>
           <Button asChild className="w-full bg-[#6F4E37] hover:bg-[#5D402E] h-12 rounded-xl font-bold">
-            <Link href="/dashboard">
+            <Link href="/">
               <ArrowLeft className="mr-2 h-4 w-4" /> Start Shopping
             </Link>
           </Button>
@@ -96,7 +96,7 @@ export default function CartPage() {
       <header className="bg-white border-b h-20 flex items-center px-4 md:px-8 sticky top-0 z-40">
         <div className="container max-w-7xl mx-auto flex items-center gap-4">
           <Button variant="ghost" size="icon" asChild className="rounded-xl hover:bg-[#FDF8F6]">
-            <Link href="/dashboard">
+            <Link href="/">
               <ArrowLeft className="h-5 w-5 text-[#6F4E37]" />
             </Link>
           </Button>

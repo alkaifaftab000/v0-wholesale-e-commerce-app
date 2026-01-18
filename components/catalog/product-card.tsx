@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import type { Product } from "@/lib/types"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
@@ -88,9 +89,20 @@ export function ProductCard({ product, userId }: ProductCardProps) {
               Limited Stock
             </Badge>
           )}
-          <Badge variant="secondary" className="bg-white/90 backdrop-blur shadow-sm">
-            {product.brand}
-          </Badge>
+          {product.brandImage ? (
+            <div className="bg-white p-1 rounded-md shadow-sm h-12 w-12 flex items-center justify-center relative overflow-hidden">
+              <Image
+                src={product.brandImage || "/placeholder.svg"}
+                alt={product.brand}
+                fill
+                className="object-contain p-0.5"
+              />
+            </div>
+          ) : (
+            <Badge variant="secondary" className="bg-white/90 backdrop-blur shadow-sm">
+              {product.brand}
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -141,20 +153,32 @@ export function ProductCard({ product, userId }: ProductCardProps) {
               </Button>
             </div>
             <div className="flex gap-2 w-full">
-              <Button
-                className={`flex-1 font-bold h-10 transition-colors ${isAdded ? "bg-green-600 hover:bg-green-700" : "bg-[#6F4E37] hover:bg-[#5D402E]"}`}
-                onClick={handleAddToCart}
-              >
-                {isAdded ? (
-                  <>
-                    <CheckCircle2 className="mr-2 h-4 w-4" /> Added
-                  </>
-                ) : (
-                  <>
-                    <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
-                  </>
-                )}
-              </Button>
+              {isAdded ? (
+                <div className="flex gap-2 w-full">
+                  <Button
+                    variant="outline"
+                    className="flex-1 font-bold border-green-600 text-green-600 hover:text-green-700 bg-green-50"
+                    asChild
+                  >
+                    <Link href="/cart">
+                      <CheckCircle2 className="mr-2 h-4 w-4" /> Go to Cart
+                    </Link>
+                  </Button>
+                  <Button
+                    className="aspect-square p-0 bg-[#6F4E37] hover:bg-[#5D402E]"
+                    onClick={handleAddToCart}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  className="flex-1 font-bold h-10 transition-colors bg-[#6F4E37] hover:bg-[#5D402E]"
+                  onClick={handleAddToCart}
+                >
+                  <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                </Button>
+              )}
               <Button variant="outline" size="icon" className="h-10 w-10 border-[#E5D5D0] bg-transparent">
                 <Info className="h-4 w-4 text-[#6F4E37]" />
               </Button>

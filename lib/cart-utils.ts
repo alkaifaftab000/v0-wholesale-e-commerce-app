@@ -4,7 +4,9 @@ const LOT_SIZE_QUINTALS = 1.5 // 1.5 quintals per lot
 const BAG_SIZE_KG = 50 // 50kg per bag
 const GST_PERCENT = 0.09 // 9% GST
 
-export const getCart = (userId: string): Cart => {
+export const GUEST_ID = "guest-user"
+
+export const getCart = (userId: string = GUEST_ID): Cart => {
   if (typeof window === "undefined") return { items: [], subtotal: 0, gst: 0, deliveryCharge: 0, total: 0 }
   const cartData = localStorage.getItem(`cart_${userId}`)
   if (!cartData) return { items: [], subtotal: 0, gst: 0, deliveryCharge: 0, total: 0 }
@@ -59,6 +61,12 @@ export const addToCart = (userId: string, product: Product, quantity: number): {
   const updatedCart = calculateCartTotals(cart.items)
   saveCart(userId, updatedCart)
   console.log("[v0] Product added to cart:", product.productName, "New Total:", updatedCart.total)
+
+  // Dispatch event for same-tab updates
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("cart-updated"))
+  }
+
   return { success: true, cart: updatedCart }
 }
 
@@ -87,6 +95,12 @@ export const updateCartItemQuantity = (
 
   const updatedCart = calculateCartTotals(cart.items)
   saveCart(userId, updatedCart)
+
+  // Dispatch event for same-tab updates
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("cart-updated"))
+  }
+
   return { success: true, cart: updatedCart }
 }
 
@@ -95,11 +109,21 @@ export const removeFromCart = (userId: string, cartItemId: string): { success: b
   cart.items = cart.items.filter((item) => item.cartItemId !== cartItemId)
   const updatedCart = calculateCartTotals(cart.items)
   saveCart(userId, updatedCart)
+
+  // Dispatch event for same-tab updates
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("cart-updated"))
+  }
+
   return { success: true, cart: updatedCart }
 }
 
 export const clearCart = (userId: string) => {
   saveCart(userId, { items: [], subtotal: 0, gst: 0, deliveryCharge: 0, total: 0 })
+  // Dispatch event for same-tab updates
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new CustomEvent("cart-updated"))
+  }
 }
 
 export const getCartItemCount = (userId: string): number => {

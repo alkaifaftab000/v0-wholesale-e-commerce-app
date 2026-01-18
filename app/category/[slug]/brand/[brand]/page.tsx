@@ -3,6 +3,7 @@ import Link from "next/link"
 import { PRODUCTS } from "@/lib/data/products"
 import type { ProductCategory } from "@/lib/types"
 import { ProductCard } from "@/components/catalog/product-card"
+import { GUEST_ID } from "@/lib/cart-utils"
 import { ChevronLeft } from "lucide-react"
 
 interface BrandPageProps {
@@ -41,7 +42,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {brandProducts.map((product) => (
-              <ProductCard key={product.id} product={product} userId="guest-user" />
+              <ProductCard key={product.id} product={product} userId={GUEST_ID} />
             ))}
           </div>
         </div>
