@@ -32,14 +32,25 @@ export default function CartPage() {
         return
       }
 
-      // Load addresses
-      const saved = localStorage.getItem(`thokwale_addresses_${user?.id}`)
-      if (saved) {
-        const parsed = JSON.parse(saved)
-        setAddresses(parsed)
-        const def = parsed.find((a: any) => a.isDefault)
+      // Load addresses from Supabase (same source as /dashboard/addresses)
+      const { data, error } = await supabase
+        .from('user_addresses')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: true })
+
+      if (data && data.length > 0) {
+        const mapped = data.map((d: any) => ({
+          id: d.id,
+          label: d.label,
+          address: d.address,
+          pincode: d.pincode,
+          isDefault: d.is_default,
+        }))
+        setAddresses(mapped)
+        const def = mapped.find((a: any) => a.isDefault)
         if (def) setSelectedAddress(def.id)
-        else if (parsed.length > 0) setSelectedAddress(parsed[0].id)
+        else setSelectedAddress(mapped[0].id)
       }
       
       setLoading(false)
