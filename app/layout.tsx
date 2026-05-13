@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Toaster } from "sonner"
+import { GitHubFooter } from "@/components/github-footer"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -25,8 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased min-h-screen bg-background text-foreground`}>
-        {children}
+      <body className={`font-sans antialiased min-h-screen bg-background text-foreground flex flex-col`}>
+        <div className="flex-1">
+          {children}
+        </div>
+        <GitHubFooter />
         <Analytics />
         <Toaster position="top-center" richColors />
       </body>

@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import Link from "next/link"
 import { Building2, Users, FileText, Package, Warehouse, LogOut, LayoutDashboard } from "lucide-react"
+import { GitHubFooter } from "@/components/github-footer"
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -53,6 +54,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             </button>
           </form>
         </div>
+        <GitHubFooter variant="sidebar" />
       </aside>
 
       <main className="flex-1 overflow-y-auto">
