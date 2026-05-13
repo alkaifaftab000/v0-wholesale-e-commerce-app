@@ -600,6 +600,20 @@ export default function LandingPage() {
                 <div className="text-center mt-4">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">Meet the Founder</h3>
                   <p className="text-gray-600">Building ThokWale.Store to revolutionize wholesale agriculture trade in India</p>
+                  {/* GitHub attribution below founder photo */}
+                  <a
+                    href="https://github.com/alkaifaftab000"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-gray-700 transition-all duration-200 group shadow-md hover:shadow-lg"
+                    aria-label="View alkaifaftab000 on GitHub"
+                  >
+                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
+                      <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.334-5.466-5.931 0-1.31.468-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.655 1.653.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.628-5.476 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    <span>Made with <span className="text-pink-400">💖</span> by alkaifaftab000</span>
+                  </a>
+                  <p className="text-xs text-gray-400 mt-2">If you like it, please give it a <span className="text-yellow-500 font-semibold">⭐</span></p>
                 </div>
               </div>
               <div className="relative w-full md:w-1/2 mt-8 md:mt-16">
@@ -767,8 +781,25 @@ export default function LandingPage() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
+          <div className="border-t border-gray-800 pt-8 text-center text-sm space-y-3">
             <p>&copy; 2026 ThokWale.Store. All rights reserved.</p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-gray-400">
+              <span>Made with <span className="text-pink-400">💖</span> by</span>
+              <a
+                href="https://github.com/alkaifaftab000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-gray-300 hover:text-white font-semibold transition-all duration-200 group"
+                aria-label="View alkaifaftab000 on GitHub"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" aria-hidden="true">
+                  <path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.089-.745.083-.729.083-.729 1.205.084 1.84 1.237 1.84 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.605-2.665-.3-5.466-1.334-5.466-5.931 0-1.31.468-2.381 1.236-3.221-.124-.303-.536-1.523.117-3.176 0 0 1.008-.322 3.3 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.655 1.653.243 2.873.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.804 5.628-5.476 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.898-.015 3.293 0 .322.216.694.825.576C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                </svg>
+                <span>alkaifaftab000</span>
+              </a>
+              <span className="hidden sm:inline text-gray-600">·</span>
+              <span>If you like it, please give it a <span className="text-yellow-400 font-semibold">⭐</span></span>
+            </div>
           </div>
         </div>
       </footer>
